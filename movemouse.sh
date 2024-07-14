@@ -1,12 +1,33 @@
 #!/bin/bash
 
 # Default values
-SECONDS_INACTIVE=30
+SECONDS_INACTIVE=60
 PIXEL_MOVE=5
+
+# Function to display help information
+display_help() {
+    echo "movemouse.sh"
+    echo
+    echo "Description:"
+    echo "  Detects if the user has moved their mouse in the past X (default 60) seconds."
+    echo "  If they have not, it will attempt to move the mouse."
+    echo
+    echo "Usage:"
+    echo "  ./movemouse.sh [seconds=60] [pixels=5]"
+    echo
+    echo "Optional Arguments:"
+    echo "  -h --help              Display help information"
+    echo "  seconds=60             Time window to detect user activity"
+    echo "  pixels=5               Number of pixels to move the mouse in the pattern"
+    exit 0
+}
 
 # Parse command line arguments
 for arg in "$@"; do
   case $arg in
+    -h|--help)
+      display_help
+      ;;
     seconds=*)
       SECONDS_INACTIVE="${arg#*=}"
       shift
@@ -173,4 +194,4 @@ done
 wait
 EOF
 
-chmod +x location.sh
+chmod +x movemouse.sh
